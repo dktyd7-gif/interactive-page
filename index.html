@@ -1,0 +1,83 @@
+<p style="text-align: center;" data-ke-size="size16">&nbsp;</p>
+<div>
+<style>
+<!--
+body {
+  margin: 0;
+  background: white;
+}
+
+/* 전체 이미지 영역 */
+#layer2 {
+  width:486px; height:353px; position:absolute; left:133px; top:125px; z-index:1; }
+
+#mainImg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 🔴 원형 hotspot */
+#hotspot {
+  width:150px; height:60px; position:absolute; left:80px; top:180px; z-index:1; cursor: pointer; }
+  #hotspot.disabled {
+  pointer-events: none;
+}
+
+/* 말풍선 */
+#tooltip {
+  font-size:12px; color:white; background-color:black; padding-top:4px; padding-right:10px; padding-bottom:4px; padding-left:10px; position:absolute; left:50%; top:-38px; z-index:1; }
+
+.shake {
+  animation: shake 0.4s;
+}
+-->
+</style>
+</div>
+<div id="layer1" style="width: 600px; height: 411px; position: absolute; left: 67px; top: 62px; z-index: 1;"><img src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbb6m5a%2FdJMcagEg4Dk%2FAAAAAAAAAAAAAAAAAAAAAH7Anlm4yqnggo9q-8IA4kD0GnSzAdh19T-9_N4sEUdj%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1769871599%26allow_ip%3D%26allow_referer%3D%26signature%3DoPrbVx01AN9fSznJx7GextVkH2w%253D" width="600" height="411" border="0" /></div>
+<div id="layer2"><img id="mainImg" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&amp;fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FZ0V1H%2FdJMcabwaEnF%2FAAAAAAAAAAAAAAAAAAAAALuob4mX9kGm-nu8cOtKPRjK554lO-5MLZnfLLaET_LZ%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1769871599%26allow_ip%3D%26allow_referer%3D%26signature%3DyjfX0NyjOGMeIBdfudBp6dVG%252FXU%253D" align="bottom" />
+<div id="hotspot">
+<div id="tooltip">click</div>
+</div>
+</div>
+<script>
+let isFirstImage = true;
+
+const hotspot = document.getElementById("hotspot");
+const tooltip = document.getElementById("tooltip");
+const mainImg = document.getElementById("mainImg");
+
+/* PC hover */
+hotspot.addEventListener("mouseenter", () => {
+  if (!isFirstImage) return;
+  tooltip.style.opacity = "1";
+  hotspot.classList.add("shake");
+});
+
+hotspot.addEventListener("mouseleave", () => {
+  if (!isFirstImage) return;
+  tooltip.style.opacity = "0";
+  hotspot.classList.remove("shake");
+});
+
+/* 모바일 터치 */
+hotspot.addEventListener("touchstart", (e) => {
+  if (!isFirstImage) return;
+  e.preventDefault();
+  tooltip.style.opacity = "1";
+  hotspot.classList.add("shake");
+});
+
+/* 클릭 시 이미지 변경 */
+hotspot.addEventListener("click", () => {
+  if (!isFirstImage) return;
+
+  mainImg.src = "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fu3GUj%2FdJMcaaYk30V%2FAAAAAAAAAAAAAAAAAAAAALQ911dxb0KoeoaYqZqRsMlLaJGfoxYG3PSR_KwSeijo%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1769871599%26allow_ip%3D%26allow_referer%3D%26signature%3D9NVQQ%252BjfaK3uSu%252FUPOEkgkyhPQc%253D";
+  isFirstImage = false;
+
+  /* 모든 효과 제거 & 비활성화 */
+  tooltip.style.opacity = "0";
+  hotspot.classList.remove("shake");
+  hotspot.classList.add("disabled");
+});
+</script>
